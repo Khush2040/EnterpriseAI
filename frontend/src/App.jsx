@@ -7,7 +7,8 @@ import {
 } from 'lucide-react';
 import './index.css';
 
-const API_BRL = import.meta.env.VITE_API_URL || '/api';
+const rawUrl = import.meta.env.VITE_API_URL || '';
+const API_BRL = rawUrl ? (rawUrl.endsWith('/api') ? rawUrl : rawUrl.replace(/\/$/, '') + '/api') : '/api';
 
 const Sidebar = ({ activeTab, setActiveTab }) => (
   <aside className="sidebar">
