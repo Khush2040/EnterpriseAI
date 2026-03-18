@@ -8,7 +8,9 @@ import {
 import './index.css';
 
 const rawUrl = import.meta.env.VITE_API_URL || '';
-const API_BRL = rawUrl ? (rawUrl.endsWith('/api') ? rawUrl : rawUrl.replace(/\/$/, '') + '/api') : '/api';
+const API_BRL = rawUrl 
+  ? (rawUrl.endsWith('/api') ? rawUrl : rawUrl.replace(/\/$/, '') + '/api') 
+  : (window.location.hostname === 'localhost' ? '/api' : 'https://enterpriseai-3.onrender.com/api');
 
 const Sidebar = ({ activeTab, setActiveTab }) => (
   <aside className="sidebar">
