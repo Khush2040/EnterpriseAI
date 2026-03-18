@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import './index.css';
 
-const API_BRL = 'http://localhost:3001/api';
+const API_BRL = import.meta.env.VITE_API_URL || '/api';
 
 const Sidebar = ({ activeTab, setActiveTab }) => (
   <aside className="sidebar">
@@ -41,7 +41,7 @@ const PipelineVisualizer = ({ status, logs }) => {
     { id: 'publish', label: 'Multi-Channel Push', icon: <Share2 size={18} /> }
   ];
 
-  let currentStepIdx = 0;
+  let currentStepIdx = -1;
   if (status === 'COMPLETED') currentStepIdx = 5;
   else if (logs.some(l => l.message.includes("Distribution Agent"))) currentStepIdx = 4;
   else if (logs.some(l => l.message.includes("Localization Agent"))) currentStepIdx = 3;
@@ -50,7 +50,7 @@ const PipelineVisualizer = ({ status, logs }) => {
   else if (logs.some(l => l.message.includes("Drafting Agent"))) currentStepIdx = 1;
 
   return (
-    <div style={{display: 'flex', justifyContent: 'space-between', width: '100%', padding: '0 20px'}}>
+    <div className="pipeline-steps-container" style={{display: 'flex', justifyContent: 'space-between', width: '100%', padding: '0 20px', flexWrap: 'wrap'}}>
       {steps.map((step, idx) => {
         const isCompleted = idx < currentStepIdx || status === 'COMPLETED';
         const isActive = idx === currentStepIdx && status !== 'IDLE' && status !== 'COMPLETED';
@@ -116,7 +116,7 @@ const LandingPage = ({ onEnter }) => {
         <Activity size={20} /> V2.0 SYSTEM ONLINE
       </div>
       
-      <h1 style={{ fontSize: '4.5rem', fontWeight: '800', lineHeight: '1.2', marginBottom: '1.5rem', letterSpacing: '-1px' }}>
+      <h1 className="landing-title" style={{ fontSize: '4.5rem', fontWeight: '800', lineHeight: '1.2', marginBottom: '1.5rem', letterSpacing: '-1px' }}>
         <span style={{color: 'var(--text-main)'}}>Enterprise</span>
         <span style={{color: 'var(--accent-color)'}}>AI</span>
       </h1>
@@ -126,17 +126,17 @@ const LandingPage = ({ onEnter }) => {
       </p>
 
       <div style={{ display: 'flex', gap: '2rem', marginBottom: '4rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-        <div style={{ textAlign: 'left', background: 'var(--panel-bg)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '250px' }}>
+        <div className="landing-card" style={{ textAlign: 'left', background: 'var(--panel-bg)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '250px' }}>
           <Shield size={28} color="var(--success-color)" style={{marginBottom: '1rem'}}/>
           <div style={{fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem', color: 'var(--text-main)'}}>Predictable Compliance</div>
           <div style={{color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.5'}}>Automated legal & regulatory guardrails applied to every generation.</div>
         </div>
-        <div style={{ textAlign: 'left', background: 'var(--panel-bg)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '250px' }}>
+        <div className="landing-card" style={{ textAlign: 'left', background: 'var(--panel-bg)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '250px' }}>
           <Zap size={28} color="var(--warning-color)" style={{marginBottom: '1rem'}}/>
           <div style={{fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem', color: 'var(--text-main)'}}>Autonomous Pipelines</div>
           <div style={{color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.5'}}>From unstructured notes to multi-format distribution without human labor.</div>
         </div>
-        <div style={{ textAlign: 'left', background: 'var(--panel-bg)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '250px' }}>
+        <div className="landing-card" style={{ textAlign: 'left', background: 'var(--panel-bg)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--border-color)', width: '250px' }}>
           <Globe size={28} color="var(--accent-secondary)" style={{marginBottom: '1rem'}}/>
           <div style={{fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem', color: 'var(--text-main)'}}>Global Localization</div>
           <div style={{color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.5'}}>Instant culturally-aware adaptations for EU, NA, and APAC markets.</div>

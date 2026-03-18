@@ -308,3 +308,124 @@ input:focus, textarea:focus {
   from { opacity: 0; transform: translateX(50px) scale(0.9); }
   to { opacity: 1; transform: translateX(0) scale(1); }
 }
+
+/* 📱 Mobile Responsive Overrides */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem;
+    position: static;
+  }
+  
+  .sidebar nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .nav-item {
+    white-space: nowrap;
+    margin-bottom: 0;
+    padding: 8px 12px;
+  }
+
+  .logo-section {
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+
+  .main-content {
+    overflow-y: visible;
+  }
+
+  .header {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.2rem;
+  }
+
+  .api-key-input {
+    width: 100%;
+  }
+  
+  .api-key-input input {
+    width: 100% !important;
+  }
+
+  .dashboard {
+    padding: 1rem;
+  }
+
+  .agent-node-graph {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+
+  .agent-arrow {
+    transform: rotate(90deg);
+    margin: 0 auto;
+  }
+
+  /* Pipeline Steps Wrap */
+  .pipeline-steps::before {
+    display: none;
+  }
+  
+  .step-label {
+    position: static !important;
+    white-space: normal !important;
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  .landing-title {
+    font-size: 2.5rem !important;
+  }
+
+  .landing-card {
+    width: 100% !important;
+  }
+
+  .tabs {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .tab {
+    text-align: center;
+  }
+
+  .result-box {
+    padding: 1rem;
+    overflow-x: auto;
+    border-left: none;
+    border-top: 4px solid var(--text-muted);
+  }
+  
+  .terminal {
+    height: 400px;
+  }
+  
+  /* Flex containers that were row should wrap or go col */
+  .dashboard > div[style*="display: flex"] {
+    flex-direction: column;
+  }
+}
+

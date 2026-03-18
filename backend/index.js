@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const db = { tasks: [] };
 
 function getAIInstance(apiKey, isDemoMode) {
@@ -246,4 +246,22 @@ app.get('/api/tasks/:id', (req, res) => {
     res.json(safeTask);
 });
 
-app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
+// Optional logic for Vercel or similar serverless cloud hosting platform compatibility
+module.exports = app;
+
+if (require.main === module) {
+    app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
+}
+
+// Optional logic for Render / Heroku combined deployments
+const path = require('path');
+const frontendDist = path.join(__dirname, '../frontend/dist');
+const fs = require('fs');
+if (fs.existsSync(frontendDist)) {
+    app.use(express.static(frontendDist));
+    app.get('*', (req, res) => {
+        if (!req.path.startsWith('/api')) {
+            res.sendFile(path.join(frontendDist, 'index.html'));
+        }
+    });
+}
