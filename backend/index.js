@@ -246,6 +246,10 @@ app.get('/api/tasks/:id', (req, res) => {
     res.json(safeTask);
 });
 
+app.get('/ping', (req, res) => {
+    res.send("PONG - Backend is Active!");
+});
+
 // Optional logic for Vercel or similar serverless cloud hosting platform compatibility
 module.exports = app;
 
