@@ -259,7 +259,7 @@ const frontendDist = path.join(__dirname, '../frontend/dist');
 const fs = require('fs');
 if (fs.existsSync(frontendDist)) {
     app.use(express.static(frontendDist));
-    app.get('*', (req, res) => {
+    app.get('/*', (req, res) => {
         if (!req.path.startsWith('/api')) {
             res.sendFile(path.join(frontendDist, 'index.html'));
         }
